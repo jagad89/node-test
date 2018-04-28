@@ -1,30 +1,41 @@
 const utils = require('./utils');
 const expect = require('expect');
 
-it('should add two numbers',()=>{
-    var res = utils.add(33,11);
-    expect(res).toBeA('number').toBe(44);
-    // if(res !== 44){
-    //     throw new Error(`Expected 44,received ${res}`);
-    // }
-});
+describe('Utils',()=>{
 
-it('should square a number',()=>{
-    var res = utils.square(10);
-    expect(res).toBeA('number').toBe(100);
+    describe('#add',()=>{
+        it('should add two numbers',()=>{
+            var res = utils.add(33,11);
+            expect(res).toBeA('number').toBe(44);
+            // if(res !== 44){
+            //     throw new Error(`Expected 44,received ${res}`);
+            // }
+        });
 
+        it('shouold add two number async',(done)=>{
+            utils.asyncAdd(5,6,(sum)=>{
+                expect(sum).toBeA('number').toBe(11);
+                done();
+            });
+        });
+    });
+    
+    it('should square a number',()=>{
+        var res = utils.square(10);
+        expect(res).toBeA('number').toBe(100);
+        // if(res !== 100){
+        //     throw new Error(`Expected 100,received ${res}`);
+        // }
+    });
 
-    // if(res !== 100){
-    //     throw new Error(`Expected 100,received ${res}`);
-    // }
-});
+    it('should verify first and last name set',()=>{
 
-it('shouold add two number async',(done)=>{
-    utils.asyncAdd(5,6,(sum)=>{
-        expect(sum).toBeA('number').toBe(11);
-        done();
+        var user = utils.setName({},'John Wage');
+        expect(user).toEqual({firstName: 'John',lastName:'Wage'});
     });
 });
+
+
 
 
 it('should have some value',()=>{
@@ -44,8 +55,3 @@ it('should have some value',()=>{
     // expect([1,2,3]).toExclude(2);
 });
 
-it('should verify first and last name set',()=>{
-
-    var user = utils.setName({},'John Wage');
-    expect(user).toEqual({firstName: 'John',lastName:'Wage'});
-});
